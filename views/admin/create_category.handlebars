@@ -16,7 +16,7 @@
               {{/if}}
             </div>
 
-            <div class="form-group col-sm-12"></div>
+            <div class="form-group col-sm-12">
               <label for="slug">Slug da categoria:</label>
               <input name="slug" class="form-control {{#if errors.slug}}border border-danger{{/if}}" type="text" placeholder="Slug da categoria"/>
 
@@ -25,7 +25,16 @@
               {{/if}}
             </div>
 
-            <div class="mt-4">
+            <div class="form-group col-sm-12">
+              <label for="description">Descrição</label>
+              <textarea name="description" class="form-control {{#if errors.description}}border border-danger{{/if}}" rows="3"></textarea>
+
+              {{#if errors.slug}}
+                <span class="text-danger">{{errors.description}}</span>
+              {{/if}}
+            </div>
+
+            <div class="col-sm-12">
               <button class="btn btn-success float-right" type="submit">Cadastrar</button>
             </div>
           </div>

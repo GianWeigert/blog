@@ -29,7 +29,8 @@ router.get('/categories/create', function(request, response) {
 router.post('/categories/create', function(request, response) {
     var formParameters = {
         name: request.body.name,
-        slug: request.body.slug
+        slug: request.body.slug,
+        description: request.body.description
     }
 
     var validator =  new Validator(formParameters, CategoryValidator);
@@ -37,14 +38,13 @@ router.post('/categories/create', function(request, response) {
 
     if (!validator.isValid()) {
         var errors = validator.getErrors();
-        console.log(errors);
-        response.render('admin/create_category', {errors: errors});
+        return response.render('admin/create_category', {errors: errors});
     }
 
     var category = new Category(formParameters);
 
     category.save().then(() => {
-        response.redirect('/admin/categories');
+        return response.redirect('/admin/categories');
     }).catch((error) => {
         console.log('Error saving category: ' + error);
     });
