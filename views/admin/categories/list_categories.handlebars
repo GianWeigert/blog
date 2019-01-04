@@ -19,9 +19,13 @@
           </div>
 
           <div class="card-footer text-center">
-            <a href="#" class="align-self-end btn btn-primary">Editar</a>
+            <a href="/admin/categories/edit/{{id}}" class="align-self-end btn btn-info">Editar</a>
           </div>
         </div>
+      </div>
+    {{else}}
+      <div class="col-sm-12">
+        <h3>Nenhuma categoria encontrada.</h3>
       </div>
     {{/each}}
   </div>
