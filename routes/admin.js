@@ -7,7 +7,7 @@ const CategoryValidator = require('../validators/CategoryValidator');
 const Validator = require('../validators/Validator');
 
 router.get('/', function(request, response) {
-    response.render('admin/index');
+    return response.render('admin/index');
 });
 
 router.get('/posts', function(request, response) {
@@ -16,14 +16,14 @@ router.get('/posts', function(request, response) {
 
 router.get('/categories', function(request, response) {
     Category.find().then((categories) => {
-        response.render('admin/list_categories', {categories: categories});
+        return response.render('admin/categories/list_categories', {categories: categories});
     }).catch(() => {
         console.log('Error listing category: ' + error);
     });
 });
 
 router.get('/categories/create', function(request, response) {
-    response.render('admin/create_category', {errors: {}});
+    return response.render('admin/categories/create_category', {errors: {}});
 });
 
 router.post('/categories/create', function(request, response) {
@@ -38,7 +38,7 @@ router.post('/categories/create', function(request, response) {
 
     if (!validator.isValid()) {
         var errors = validator.getErrors();
-        return response.render('admin/create_category', {errors: errors});
+        return response.render('admin/categories/create_category', {errors: errors});
     }
 
     var category = new Category(formParameters);

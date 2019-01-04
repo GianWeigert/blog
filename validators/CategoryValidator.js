@@ -34,6 +34,11 @@ const CategoryValidator = {
                 constraintName: 'minLength',
                 numberOfCharacters: 3,
                 message: 'O campo descrição deve conter pelo menos 3 caracteres'
+            },
+            {
+                constraintName: 'maxLength',
+                numberOfCharacters: 80,
+                message: 'O campo descrição deve conter menos de 80 caracteres'
             }]
         }
     ]
