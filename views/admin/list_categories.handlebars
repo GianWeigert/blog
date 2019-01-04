@@ -1,3 +1,30 @@
-<h1> Lista de Categorias</h1>
+<div class="col-sm-12">
+  <h1 class="text-center"> Lista de Categorias</h1>
+</div>
 
-<a href="/admin/categories/create"><button class="btn btn-success">Nova Categoria</button></a>
+<div class="col-sm-12">
+  <a href="/admin/categories/create">
+    <button class="btn btn-success float-right">Nova Categoria</button>
+  </a>
+</div>
+
+<div class="col-sm-12">
+  <div class="row">
+    {{#each categories}}
+      <div class="col-sm-3  mt-4">
+        <div class="card">
+          <img class="card-img-top" src="http://www.leandromtr.com/wp-content/uploads/2018/12/linguagens-de-programacao.jpg" alt="Card image cap">
+
+          <div class="card-body">
+            <h4 class="card-title">{{name}}</h4>
+            <p class="card-text">Here is a longer description of the card and the height will be auto aligned with flex box.</p>
+          </div>
+
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Editar</a>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>

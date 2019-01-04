@@ -10,19 +10,23 @@ router.get('/', function(request, response) {
     response.render('admin/index');
 });
 
-router.get('/posts', function(request, response){
+router.get('/posts', function(request, response) {
 
 });
 
-router.get('/categories', function(request, response){
-    response.render('admin/list_categories');
+router.get('/categories', function(request, response) {
+    Category.find().then((categories) => {
+        response.render('admin/list_categories', {categories: categories});
+    }).catch(() => {
+        console.log('Error listing category: ' + error);
+    });
 });
 
-router.get('/categories/create', function(request, response){
+router.get('/categories/create', function(request, response) {
     response.render('admin/create_category', {errors: {}});
 });
 
-router.post('/categories/create', function(request, response){
+router.post('/categories/create', function(request, response) {
     var formParameters = {
         name: request.body.name,
         slug: request.body.slug
