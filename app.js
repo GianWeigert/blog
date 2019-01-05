@@ -3,6 +3,7 @@ const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const app = express();
 const adminRoutes = require('./routes/admin'); 
+const userRoutes = require('./routes/user');
 const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -34,6 +35,7 @@ mongoose.connect('mongodb://localhost/blog', {
 
 // Routes
 app.use('/admin', adminRoutes);
+app.use('/users', userRoutes);
 
 // Css and JS files
 app.use(express.static(path.join(__dirname, 'public')));
