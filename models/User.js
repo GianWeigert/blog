@@ -21,6 +21,11 @@ const User = new Schema({
     updatedAt: {
         type: Date,
         default: Date.now
+    },
+    enabled: {
+        type: Boolean,
+        require: true,
+        default: true
     }
 });
 
