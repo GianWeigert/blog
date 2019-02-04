@@ -1,16 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-require('../models/User');
-const User = mongoose.model('users');
+'use strict'
+
+const User = require('../models/User');
 const Validator = require('../validators/Validator');
 const CreateUserValidator = require('../validators/users/CreateUserValidator');
 
-router.get('/register', function(request, response) {
+exports.renderRegister = (request, response) => {
     return response.render('users/create_user');
-});
+}
 
-router.post('/register', function(request, response) {
+exports.register = (request, response) => {
     const formParameters = request.body;
 
     const validator =  new Validator(formParameters, CreateUserValidator);
@@ -28,7 +26,7 @@ router.post('/register', function(request, response) {
     }).catch((error) => {
         console.log('Error saving user: ' + error);
     });
-});
+}
 
 function setUser(parametersUser) {
     const user = {
@@ -39,5 +37,3 @@ function setUser(parametersUser) {
 
     return new User(user);
 }
-
-module.exports = router;

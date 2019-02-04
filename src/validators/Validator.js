@@ -1,3 +1,5 @@
+'use strict';
+
 const Constraints = require('./constraints/Constraints');
 
 class Validator {

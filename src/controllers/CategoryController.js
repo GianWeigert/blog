@@ -1,60 +1,54 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-require('../models/Category');
-const Category = mongoose.model('categories');
-const CategoryValidator = require('../validators/CategoryValidator');
+'use strict';
+
+const Category = require('../models/Category');
 const Validator = require('../validators/Validator');
+const CategoryValidator = require('../validators/CategoryValidator');
 
-router.get('/', function(request, response) {
-    return response.render('admin/index');
-});
-
-router.get('/categories', function(request, response) {
+exports.get = (request, response) => {
     Category.find().then((categories) => {
         return response.render('admin/categories/list_categories', {categories: categories});
     }).catch(() => {
         console.log('Error listing category: ' + error);
     });
-});
+}
 
-router.get('/categories/create', function(request, response) {
+exports.renderCreate = (request, response) => {
     return response.render('admin/categories/create_category', {errors: {}});
-});
+}
 
-router.post('/categories/create', function(request, response) {
-    var formParameters = {
+exports.create = (request, response) => {
+    let formParameters = {
         name: request.body.name,
         slug: request.body.slug,
         description: request.body.description
-    }
+    };
 
-    var validator =  new Validator(formParameters, CategoryValidator);
+    const validator =  new Validator(formParameters, CategoryValidator);
     validator.validate();
 
     if (!validator.isValid()) {
-        var errors = validator.getErrors();
+        let errors = validator.getErrors();
         return response.render('admin/categories/create_category', {errors: errors});
     }
 
-    var category = new Category(formParameters);
+    let category = new Category(formParameters);
 
     category.save().then(() => {
         return response.redirect('/admin/categories');
     }).catch((error) => {
         console.log('Error saving category: ' + error);
     });
-});
+}
 
-router.get('/categories/edit/:id', function(request, response) {
+exports.renderEdit = (request, response) => {
     Category.findById(request.params.id).then((category) => {
         return response.render('admin/categories/edit_category', {category: category});
     }).catch((error) => {
         console.log('Error Category not found: ' + error);
     });
-});
+}
 
-router.post('/categories/edit/:id', function(request, response) {
+exports.edit = (request, response) => {
     Category.findById(request.params.id).then((category) => {
         var formParameters = {
             name: request.body.name,
@@ -82,6 +76,4 @@ router.post('/categories/edit/:id', function(request, response) {
     }).catch((error) => {
         console.log('Error to edit category: Category not found: ' + error);
     });
-});
-
-module.exports = router;
+}

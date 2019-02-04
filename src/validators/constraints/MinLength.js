@@ -1,4 +1,6 @@
-const minLength = function(constraint, value) {
+'use strict';
+
+const minLength = (constraint, value) => {
     if (!value || value.length < constraint.numberOfCharacters) {
         return false;
     }

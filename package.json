@@ -2,9 +2,9 @@
   "name": "blog",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./bin/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./bin/server.js"
   },
   "author": "Gian Weigert Rodrigues",
   "license": "ISC",
@@ -14,6 +14,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "handlebars": "^4.0.12",
+    "http": "0.0.0",
     "mongoose": "^5.4.1"
   }
 }

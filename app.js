@@ -1,12 +1,22 @@
 const express = require('express');
-const handlebars = require('express-handlebars');
-const bodyParser = require('body-parser');
 const app = express();
-const adminRoutes = require('./routes/admin'); 
-const userRoutes = require('./routes/user');
+const bodyParser = require('body-parser');
+const handlebars = require('express-handlebars');
+
 const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
+
+// Body Parser
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+// Routes
+const adminRoutes = require('./src/routes/admin');
+const userRoutes = require('./src/routes/user');
+
+app.use('/admin', adminRoutes);
+app.use('/users', userRoutes);
 
 // Section
 app.use(session({
@@ -15,12 +25,15 @@ app.use(session({
     saveUninitialized: true
 }));
 
-// Body Parser
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
 // Handlebars
-app.engine('handlebars', handlebars({defaultLayout: 'main'}));
+app.set('views', __dirname + '/src/views');
+app.engine('handlebars', handlebars({
+    defaultLayout: 'main',
+    layoutsDir: __dirname + '/src/views/layouts',
+    partialsDir  : [
+        __dirname + '/src/views/partials',
+    ]
+}));
 app.set('view engine', 'handlebars');
 
 // MongoDB
@@ -33,15 +46,7 @@ mongoose.connect('mongodb://localhost/blog', {
     console.log('Can not possible connect with the database, error: ' + error);
 });
 
-// Routes
-app.use('/admin', adminRoutes);
-app.use('/users', userRoutes);
-
 // Css and JS files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
-//Server
-const PORT = 9001;
-app.listen(PORT,() => {
-    console.log('Server is running');
-})
+module.exports = app;

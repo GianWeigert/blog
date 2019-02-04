@@ -1,3 +1,5 @@
+'use strict';
+
 const required = require('./Required');
 const minLength = require('./MinLength');
 const maxLength = require('./MaxLength');

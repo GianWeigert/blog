@@ -1,4 +1,6 @@
-const maxLength = function(constraint, value) {
+'use strict';
+
+const maxLength = (constraint, value) => {
     if (!value || value.length > constraint.numberOfCharacters) {
         return false;
     }

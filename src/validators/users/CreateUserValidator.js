@@ -1,3 +1,5 @@
+'use strict';
+
 const CreateUserValidator = {
     fields: [{
         name: 'name',
